@@ -1,6 +1,6 @@
 # DSH frame
 
-> **简介**：一个独立的 Electron 桌面应用，驱动**你自己安装的官方 DeepSeek Harness**，这个应用尽可能的不对官方harness做任何修改，只提供显示窗口。
+> **简介**：一个独立的基于 Electron 桌面应用，驱动**你自己安装的官方 DeepSeek Harness**，这个应用尽可能的不对官方harness做任何修改，只提供显示窗口。
 >
 > **适合谁**：已经装了官方 `dsh`、受够了每次开浏览器找标签页、并且希望在插件损坏harness时能便捷解决的人。
 
@@ -32,3 +32,5 @@
 2. 直接运行 `DSH-portable-0.1.0.exe`（免安装）
 ## 许可
 -  MIT。
+## 创作
+- 本项目由depseek在harness内创作，并经过测试和迭代，目前未发现bug
