@@ -1,6 +1,6 @@
-# DSH 桌面版（官方 runtime）
+# DSH frame
 
-> **一句话**：一个独立的 Electron 桌面应用，驱动**你自己安装的官方 DeepSeek Harness**——不捆绑运行时、不打补丁、不改你的 profile。
+> **简介**：一个独立的 Electron 桌面应用，驱动**你自己安装的官方 DeepSeek Harness**——不捆绑运行时、不打补丁、不改你的 profile。
 >
 > **适合谁**：已经装了官方 `dsh`、受够了每次开浏览器找标签页、并且希望插件把 profile 搞坏时能在界面里自救的人。
 
