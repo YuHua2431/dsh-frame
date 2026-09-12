@@ -1,0 +1,170 @@
+/*
+ * The immersive frame: a 36px band that owns the window's drag region and sits
+ * above the official DSH page, which lives in its own sibling viewport.
+ *
+ * Colour is driven twice over: explicit `data-theme` from the sampled DSH page
+ * background (authoritative), with `prefers-color-scheme` as the fallback used
+ * before the first sample arrives.
+ */
+
+:root {
+  color-scheme: light dark;
+  --frame-fill: #f4f5f7;
+  --label-primary: #1f2329;
+  --label-secondary: #6b7280;
+  --divider: rgba(0, 0, 0, 0.12);
+  --hover: rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --frame-fill: #17181c;
+    --label-primary: #e8e9ec;
+    --label-secondary: #9aa0aa;
+    --divider: rgba(255, 255, 255, 0.14);
+    --hover: rgba(255, 255, 255, 0.09);
+  }
+}
+
+/* Explicit samples beat the media query for the whole subtree. */
+body[data-theme="light"] {
+  --frame-fill: #f4f5f7;
+  --label-primary: #1f2329;
+  --label-secondary: #6b7280;
+  --divider: rgba(0, 0, 0, 0.12);
+  --hover: rgba(0, 0, 0, 0.06);
+}
+
+body[data-theme="dark"] {
+  --frame-fill: #17181c;
+  --label-primary: #e8e9ec;
+  --label-secondary: #9aa0aa;
+  --divider: rgba(255, 255, 255, 0.14);
+  --hover: rgba(255, 255, 255, 0.09);
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--frame-fill);
+}
+
+body {
+  font: 13px/1.4 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--label-primary);
+  cursor: default;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.frame {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 36px;
+  /* Set from `framePadding()` in window-chrome.js — one source of truth for the
+     space the native window controls occupy. */
+  padding: var(--frame-padding, 0 8px);
+  /* The whole band drags the window; every control opts out below. */
+  -webkit-app-region: drag;
+}
+
+/* The sidebar's colour continues up into the title row — which is what the
+   official `--dsw-specific-sidebar-fill` token documents itself as being for
+   ("Sidebar column and title-row background"). Width, fill and edge all come
+   from the live page, and the band collapses to nothing when no column is
+   found (e.g. a sidebar-free layout). */
+.frame::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: var(--sidebar-width, 0px);
+  border-right: var(--sidebar-border, none);
+  background: var(--sidebar-fill, transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.identity {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 46%;
+  transform: translateX(-50%);
+  /* Never a drag target: the band underneath already drags. */
+  pointer-events: none;
+}
+
+.product {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.divider {
+  width: 1px;
+  height: 12px;
+  background: var(--divider);
+}
+
+.title {
+  overflow: hidden;
+  color: var(--label-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The shell's restart affordance: flush against the native window controls, in
+   the same 46x36 box and the same symbol colour they are drawn with, so the row
+   reads as one set of window buttons rather than a web control dropped on top. */
+.window-action {
+  position: absolute;
+  top: 0;
+  right: var(--caption-reserve, 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 46px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #7f858f; /* titleBarOverlay.symbolColor */
+  cursor: default;
+  -webkit-app-region: no-drag;
+}
+
+.window-action:hover {
+  background: var(--hover);
+  color: var(--label-primary);
+}
+
+.window-action:active {
+  background: var(--hover);
+}
+
+.window-action:focus-visible {
+  outline: 1px solid var(--label-secondary);
+  outline-offset: -2px;
+}
+
+.window-action[data-busy="1"] svg {
+  animation: window-action-spin 0.9s linear infinite;
+}
+
+@keyframes window-action-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

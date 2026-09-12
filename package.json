@@ -1,0 +1,52 @@
+{
+  "name": "dsh-desktop-official",
+  "productName": "DSH",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Thin Electron desktop shell around the officially installed @deepseek-ai/dsh web surface",
+  "license": "MIT",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "icons": "node scripts/make-icons.mjs",
+    "dist:dir": "electron-builder --win --x64 --dir",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "local.dsh.desktop.official",
+    "productName": "DSH",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "src/**/*",
+      "assets/icon.ico",
+      "assets/tray.ico",
+      "assets/tray.png",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DSH"
+    },
+    "portable": {
+      "artifactName": "DSH-portable-${version}.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3"
+  }
+}

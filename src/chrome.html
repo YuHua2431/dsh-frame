@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'none'; font-src 'none'; connect-src 'none'"
+    />
+    <title>DSH</title>
+    <link rel="stylesheet" href="chrome.css" />
+  </head>
+  <body data-platform="" data-theme="">
+    <header class="frame" id="frame">
+      <div class="identity">
+        <span class="product" id="product">DSH</span>
+        <span class="divider" aria-hidden="true"></span>
+        <span class="title" id="title">DeepSeek Harness</span>
+      </div>
+      <button class="window-action" id="restart" type="button" title="重启 DSH 服务" aria-label="重启 DSH 服务">
+        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false">
+          <polyline
+            points="23 4 23 10 17 10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </header>
+    <script src="chrome.js"></script>
+  </body>
+</html>
