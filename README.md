@@ -31,5 +31,5 @@
 **前置**：已安装官方 DeepSeek Harness 与 Node（^22.19 或 >=24）。没有的话：`npm i -g @deepseek-ai/dsh`。
 1. 运行 `DSH Setup 0.1.0.exe` 安装（自动建桌面与开始菜单快捷方式），或
 2. 直接运行 `DSH-portable-0.1.0.exe`（免安装）
-4. ## 许可
-  MIT。第三方组件（Electron 等）遵循各自的许可。
+## 许可
+-  MIT。
